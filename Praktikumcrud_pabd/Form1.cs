@@ -148,6 +148,25 @@ namespace Praktikumcrud_pabd
             }
         }
 
+        private void btnrefresh_Click(object sender, EventArgs e)
+        {
+            LoadData();
+            MessageBox.Show($"jumla kolom: {dgvMahasiswa.Columns.Count},\njumlah baris: {dgvMahasiswa.Rows.Count}", 
+                "Debugging dataGridView", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dgvMahasiswa_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvMahasiswa.Rows[e.RowIndex];
+                txtNim.Text = row.Cells["NIM"].Value.ToString();
+                txtNama.Text = row.Cells["Nama"].Value.ToString();
+                txtEmail.Text = row.Cells["Email"].Value.ToString();
+                txtTelpon.Text = row.Cells["Telpon"].Value.ToString();
+                txtAlamat.Text = row.Cells["Alamat"].Value.ToString();
+            }
+        }
 
     }
 
