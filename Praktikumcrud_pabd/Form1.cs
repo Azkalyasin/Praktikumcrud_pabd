@@ -19,6 +19,22 @@ namespace Praktikumcrud_pabd
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void ClearForm()
+        {
+            txtNim.Clear();
+            txtNama.Clear();
+            txtEmail.Clear();
+            txtTelpon.Clear();
+            txtAlamat.Clear();
+
+
+            txtNim.Focus();
+        }
     }
 
 }
