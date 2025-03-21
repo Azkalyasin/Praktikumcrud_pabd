@@ -35,6 +35,31 @@ namespace Praktikumcrud_pabd
 
             txtNim.Focus();
         }
+
+        private void LoadData()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT NIM AS [NIM], Nama, Email, Telpon, Alamat FROM Mahasiswa";
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dgvMahasiswa.AutoGenerateColumns = true;
+                    dgvMahasiswa.DataSource = dt;
+
+                    ClearForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
+        }
     }
 
 }
