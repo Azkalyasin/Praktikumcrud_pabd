@@ -60,6 +60,48 @@ namespace Praktikumcrud_pabd
             }
             
         }
+
+        private void btnTambah_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    if(txtNim.Text == "" || txtNama.Text == "" || txtEmail.Text == "" || txtTelpon.Text == "" || txtAlamat.Text == "")
+                    {
+                        MessageBox.Show("harap isi semua data", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    connection.Open();
+                    string query = "INSERT INTO Mahasiswa (NIM, Nama, Email, Telpon, Alamat) VALUES (@NIM, @Nama, @Email, @Telpon, @Alamat)";
+                    using(SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NIM", txtNim.Text.Trim());
+                        command.Parameters.AddWithValue("@Nama", txtNama.Text.Trim());
+                        command.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                        command.Parameters.AddWithValue("@Telpon", txtTelpon.Text.Trim());
+                        command.Parameters.AddWithValue("@Alamat", txtAlamat.Text.Trim());
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Data berhasil ditambahkan", "Suksess", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LoadData();
+                            ClearForm();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Data tidak berhasil ditambahkan", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 
 }
